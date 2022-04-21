@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { CategoriesDatabase } from "../modules/cars/database/CategoriesDatabase";
-import { createCategoryController } from "../modules/cars/useCases/createCategory/index";
+import { createCategoryController } from "../modules/cars/useCases/createCategory";
+import { listCategoriesController } from "../modules/cars/useCases/listCategories";
 
 const categoriesRoutes = Router();
 
@@ -13,9 +13,7 @@ categoriesRoutes
   })
 
   .get((request, response) => {
-    const allCategories = categoriesDatabase.list();
-
-    return response.json(allCategories);
+    return listCategoriesController.handle(request, response);
   });
 
 export { categoriesRoutes };

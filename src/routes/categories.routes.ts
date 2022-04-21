@@ -1,21 +1,15 @@
 import { Router } from "express";
 
-import { CategoriesDatabase } from "../database/CategoriesDatabase";
-import { CreateCategoryService } from "../services/CreateCategoryService";
+import { CategoriesDatabase } from "../modules/cars/database/CategoriesDatabase";
+import { createCategoryController } from "../modules/cars/useCases/createCategory/index";
 
 const categoriesRoutes = Router();
-const categoriesDatabase = new CategoriesDatabase();
 
 categoriesRoutes
   .route("/")
 
   .post((request, response) => {
-    const { name, description } = request.body;
-
-    const createCategoryService = new CreateCategoryService(categoriesDatabase);
-    createCategoryService.execute({ name, description });
-
-    return response.status(201).send();
+    return createCategoryController.handle(request, response);
   })
 
   .get((request, response) => {

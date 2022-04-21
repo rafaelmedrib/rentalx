@@ -1,11 +1,11 @@
-import { ICategoriesDatabase } from "../database/ICategoriesDatabase";
+import { ICategoriesDatabase } from "../../database/ICategoriesDatabase";
 
 interface IRequest {
   name: string;
   description: string;
 }
 
-class CreateCategoryService {
+class CreateCategoryUseCase {
   private categoriesDatabase: ICategoriesDatabase;
   constructor(categoriesDatabase: ICategoriesDatabase) {
     this.categoriesDatabase = categoriesDatabase;
@@ -23,4 +23,4 @@ class CreateCategoryService {
   }
 }
 
-export { CreateCategoryService };
+export { CreateCategoryUseCase };

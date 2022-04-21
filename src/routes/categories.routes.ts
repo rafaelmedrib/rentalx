@@ -11,12 +11,16 @@ categoriesRoutes
   .post((request, response) => {
     const { name, description } = request.body;
 
+    if (categoriesDatabase.alreadyContains(name)) {
+      return response.status(400).json({ error: "Category already exists" });
+    }
+
     categoriesDatabase.create({
       name,
       description,
     });
 
-    response.status(201).send();
+    return response.status(201).send();
   })
 
   .get((request, response) => {

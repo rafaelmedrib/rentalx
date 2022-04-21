@@ -27,6 +27,11 @@ class CategoriesDatabase {
   list() {
     return this.categories;
   }
+
+  alreadyContains(name: string): boolean {
+    const category = this.categories.some((category) => category.name === name);
+    return category;
+  }
 }
 
 export { CategoriesDatabase };

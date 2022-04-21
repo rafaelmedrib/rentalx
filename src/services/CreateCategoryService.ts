@@ -1,0 +1,26 @@
+import { ICategoriesDatabase } from "../database/ICategoriesDatabase";
+
+interface IRequest {
+  name: string;
+  description: string;
+}
+
+class CreateCategoryService {
+  private categoriesDatabase: ICategoriesDatabase;
+  constructor(categoriesDatabase: ICategoriesDatabase) {
+    this.categoriesDatabase = categoriesDatabase;
+  }
+
+  execute({ name, description }: IRequest): void {
+    if (this.categoriesDatabase.alreadyContains(name)) {
+      throw new Error("Category already exists!");
+    }
+
+    this.categoriesDatabase.create({
+      name,
+      description,
+    });
+  }
+}
+
+export { CreateCategoryService };

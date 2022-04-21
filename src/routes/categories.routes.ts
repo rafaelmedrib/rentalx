@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { CategoriesDatabase } from "../database/CategoriesDatabase";
+import { CreateCategoryService } from "../services/CreateCategoryService";
 
 const categoriesRoutes = Router();
 const categoriesDatabase = new CategoriesDatabase();
@@ -11,14 +12,8 @@ categoriesRoutes
   .post((request, response) => {
     const { name, description } = request.body;
 
-    if (categoriesDatabase.alreadyContains(name)) {
-      return response.status(400).json({ error: "Category already exists" });
-    }
-
-    categoriesDatabase.create({
-      name,
-      description,
-    });
+    const createCategoryService = new CreateCategoryService(categoriesDatabase);
+    createCategoryService.execute({ name, description });
 
     return response.status(201).send();
   })

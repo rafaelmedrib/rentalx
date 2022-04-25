@@ -4,8 +4,19 @@ import { ICategoriesDatabase, ICreateCategoryDTO } from "./ICategoriesDatabase";
 class CategoriesDatabase implements ICategoriesDatabase {
   private categories: Category[];
 
-  constructor() {
+  // eslint-disable-next-line no-use-before-define
+  private static INSTANCE: CategoriesDatabase;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesDatabase {
+    if (!CategoriesDatabase.INSTANCE) {
+      CategoriesDatabase.INSTANCE = new CategoriesDatabase();
+    }
+
+    return CategoriesDatabase.INSTANCE;
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
@@ -25,8 +36,10 @@ class CategoriesDatabase implements ICategoriesDatabase {
   }
 
   alreadyContains(name: string): boolean {
-    const category = this.categories.some((category) => category.name === name);
-    return category;
+    const categoryExists = this.categories.some(
+      (category) => category.name === name
+    );
+    return categoryExists;
   }
 }
 

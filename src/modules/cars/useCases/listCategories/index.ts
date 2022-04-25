@@ -1,4 +1,4 @@
-import { CategoriesDatabase } from "../../database/CategoriesDatabase";
+import { CategoriesDatabase } from "../../database/implementations/CategoriesDatabase";
 import { ListCategoriesController } from "./ListCategoriesController";
 import { ListCategoriesUseCase } from "./ListCategoriesUseCase";
 

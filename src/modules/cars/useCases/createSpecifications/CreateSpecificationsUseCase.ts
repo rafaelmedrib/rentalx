@@ -1,11 +1,11 @@
-import { ISpecificationsDatabase } from "../database/ISpecificationsDatabase";
+import { ISpecificationsDatabase } from "../../database/ISpecificationsDatabase";
 
 interface IRequest {
   name: string;
   description: string;
 }
 
-class CreateSpecificationsService {
+class CreateSpecificationsUseCase {
   private specificationsDatabase: ISpecificationsDatabase;
   constructor(specificationsDatabase) {
     this.specificationsDatabase = specificationsDatabase;
@@ -23,4 +23,4 @@ class CreateSpecificationsService {
   }
 }
 
-export { CreateSpecificationsService };
+export { CreateSpecificationsUseCase };

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
 class ImportCategoryController {
-  private importCategoryUseCase;
+  private importCategoryUseCase: ImportCategoryUseCase;
   constructor(importCategoryUseCase: ImportCategoryUseCase) {
     this.importCategoryUseCase = importCategoryUseCase;
   }

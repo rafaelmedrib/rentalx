@@ -1,4 +1,4 @@
-import { SpecificationsDatabase } from "../../database/implementations/SpecificationsDatabase";
+import { SpecificationsDatabase } from "../../repositories/implementations/SpecificationsDatabase";
 import { CreateSpecificationsController } from "./CreateSpecificationsController";
 import { CreateSpecificationsUseCase } from "./CreateSpecificationsUseCase";
 

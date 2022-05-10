@@ -1,11 +1,13 @@
-import { CategoriesDatabase } from "../../database/implementations/CategoriesDatabase";
+import { CategoriesDatabase } from "../../repositories/implementations/CategoriesDatabase";
 import { CreateCategoryController } from "./CreateCategoryController";
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
-const categoriesDatabase = CategoriesDatabase.getInstance();
-const createCategoryUseCase = new CreateCategoryUseCase(categoriesDatabase);
-const createCategoryController = new CreateCategoryController(
-  createCategoryUseCase
-);
+export default (): CreateCategoryController => {
+  const categoriesDatabase = new CategoriesDatabase();
+  const createCategoryUseCase = new CreateCategoryUseCase(categoriesDatabase);
+  const createCategoryController = new CreateCategoryController(
+    createCategoryUseCase
+  );
 
-export { createCategoryController };
+  return createCategoryController;
+};

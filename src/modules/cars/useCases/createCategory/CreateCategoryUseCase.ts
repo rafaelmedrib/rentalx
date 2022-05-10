@@ -1,4 +1,4 @@
-import { ICategoriesDatabase } from "../../database/ICategoriesDatabase";
+import { ICategoriesDatabase } from "../../repositories/ICategoriesDatabase";
 
 interface IRequest {
   name: string;
@@ -11,8 +11,10 @@ class CreateCategoryUseCase {
     this.categoriesDatabase = categoriesDatabase;
   }
 
-  execute({ name, description }: IRequest): void {
-    if (this.categoriesDatabase.alreadyContains(name)) {
+  async execute({ name, description }: IRequest): Promise<void> {
+    const categoryExists = await this.categoriesDatabase.alreadyContains(name);
+
+    if (categoryExists) {
       throw new Error("Category already exists!");
     }
 

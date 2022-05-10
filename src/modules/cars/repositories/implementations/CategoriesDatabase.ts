@@ -27,9 +27,9 @@ class CategoriesDatabase implements ICategoriesDatabase {
     return categories;
   }
 
-  async alreadyContains(name: string): Promise<boolean> {
+  async alreadyContains(name: string): Promise<Category> {
     const category = await this.categories.findOne({ name });
-    return !!category;
+    return category;
   }
 }
 

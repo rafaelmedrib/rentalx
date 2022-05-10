@@ -6,7 +6,7 @@ import swaggerFile from "./swagger.json";
 
 import "./database";
 
-const port = process.env.PORT || 3333;
+const port = 3333;
 const app = express();
 
 app.use(express.json());

@@ -1,11 +1,13 @@
+import { Specifications } from "../entities/Specifications";
+
 interface ICreateSpecificationsDTO {
   name: string;
   description: string;
 }
 
 interface ISpecificationsDatabase {
-  create({ name, description }: ICreateSpecificationsDTO): void;
-  alreadyContains(name: string): boolean;
+  create({ name, description }: ICreateSpecificationsDTO): Promise<void>;
+  alreadyContains(name: string): Promise<Specifications>;
 }
 
 export { ISpecificationsDatabase, ICreateSpecificationsDTO };

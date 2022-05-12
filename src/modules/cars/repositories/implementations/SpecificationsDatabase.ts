@@ -1,3 +1,5 @@
+import { getRepository, Repository } from "typeorm";
+
 import { Specifications } from "../../entities/Specifications";
 import {
   ICreateSpecificationsDTO,
@@ -5,29 +7,24 @@ import {
 } from "../ISpecificationsDatabase";
 
 class SpecificationsDatabase implements ISpecificationsDatabase {
-  private specificationsDatabase: Specifications[];
+  private specifications: Repository<Specifications>;
 
   constructor() {
-    this.specificationsDatabase = [];
+    this.specifications = getRepository(Specifications);
   }
 
-  create({ name, description }: ICreateSpecificationsDTO): void {
-    const specifications = new Specifications();
-
-    Object.assign(specifications, {
+  async create({ name, description }: ICreateSpecificationsDTO): Promise<void> {
+    const specification = this.specifications.create({
       name,
       description,
     });
 
-    this.specificationsDatabase.push(specifications);
+    await this.specifications.save(specification);
   }
 
-  alreadyContains(name: string): boolean {
-    const specificationsExists = this.specificationsDatabase.some(
-      (specifications) => specifications.name === name
-    );
-
-    return specificationsExists;
+  async alreadyContains(name: string): Promise<Specifications> {
+    const specification = await this.specifications.findOne({ name });
+    return specification;
   }
 }
 

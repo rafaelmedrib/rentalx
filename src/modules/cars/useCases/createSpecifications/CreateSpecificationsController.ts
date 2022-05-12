@@ -1,20 +1,24 @@
 import { Request, Response } from "express";
+import "reflect-metadata";
+import { container } from "tsyringe";
 
 import { CreateSpecificationsUseCase } from "./CreateSpecificationsUseCase";
 
 class CreateSpecificationsController {
-  private createSpecificationsUseCase: CreateSpecificationsUseCase;
-  constructor(createSpecificationsUseCase: CreateSpecificationsUseCase) {
-    this.createSpecificationsUseCase = createSpecificationsUseCase;
-  }
-
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body;
+    const createSpecificationsUseCase = container.resolve(
+      CreateSpecificationsUseCase
+    );
 
-    this.createSpecificationsUseCase.execute({
-      name,
-      description,
-    });
+    try {
+      await createSpecificationsUseCase.execute({
+        name,
+        description,
+      });
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
 
     return response.status(201).send();
   }

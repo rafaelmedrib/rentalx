@@ -39,8 +39,24 @@
           "201": {
             "description": "Created"
           },
-          "500": {
-            "description": "Category already exists"
+          "400": {
+            "description": "Category already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Category already exists"
+                  }
+                }
+              }
+            }
+            
           }
         }
       },
@@ -50,31 +66,132 @@
         "description": "The API returns a list of all existing car categories",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    }
+                  "$ref": "#/definitions/CategoriesList"
+                },
+                "example": [
+                  {                      
+                    "name": "SUV",
+                    "description": "Sports Utility Vehicle",
+                    "id": "61db88da-97f4-4048-bf17-85590e9cda3a",
+                    "created_at": "2022-05-13 11:44:44.84876"
+                  },
+                  {                      
+                    "name": "Sedan",
+                    "description": "Three volumes vehicle",
+                    "id": "11db88da-97f4-4048-bf17-85590e9cda3a",
+                    "created_at": "2021-04-11 08:34:12.55475"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/import": {
+      "post": {
+        "tags": ["Category"],
+        "summary": "Import categories",
+        "description": "Import categories from a CSV file validating the data being sent",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/specifications": {
+      "post": {
+        "tags": ["Specifications"],
+        "summary": "Create specification",
+        "description": "Create new car specification. The user sends a specification name and description and the system validates if there is a specification with the same name. In case of a negative, the system creates a new specification with the passed information plus the creation date and associates a uuid.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Specification"
+              },
+              "example": {
+                "name": "Fuel",
+                "description": "Fuel type used in the engine"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description":"Specification already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Specification already exists"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Specification": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoriesList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "Date"
           }
         }
       }

@@ -7,7 +7,7 @@ interface IRequest {
   avatar_file: string;
 }
 
-injectable();
+@injectable()
 class UpdateAvatarUseCase {
   constructor(
     @inject("UsersRepository")

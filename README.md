@@ -6,7 +6,7 @@ Deve ser possível cadastrar um novo carro.
 **RN**
 Não deve ser possível cadastrar um novo carro com uma placa já existente.
 O carro deve ser cadastrado como disponível como padrão.
-* O usuário responsável pelo cadastro deve possuir privilégios de administrador. (Isso não é responsabilidade do CreateCarUseCase)
+O usuário responsável pelo cadastro deve possuir privilégios de administrador. (Isso não é responsabilidade do CreateCarUseCase)
 
 # Listagem de carros
 

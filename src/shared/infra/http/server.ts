@@ -4,12 +4,14 @@ import swaggerUi from "swagger-ui-express";
 
 import swaggerFile from "../../../swagger.json";
 import { AppError } from "../../errors/AppError";
+import createConnection from "../typeorm";
 import { router } from "./routes";
 
 import "../../container";
-import "../typeorm";
 
-const port = 3333;
+const port = process.env.PORT || 3333;
+
+createConnection();
 const app = express();
 
 app.use(express.json());

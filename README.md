@@ -2,13 +2,11 @@
 
 **RF**
 Deve ser possível cadastrar um novo carro.
-Deve ser possível listar todas as categorias.
 
 **RN**
 Não deve ser possível cadastrar um novo carro com uma placa já existente.
-Não deve ser possível alterar a placa de um carro já cadastrado.
 O carro deve ser cadastrado como disponível como padrão.
-O usuário responsável pelo cadastro deve possuir privilégios de administrador.
+O usuário responsável pelo cadastro deve possuir privilégios de administrador. (Isso não é responsabilidade do CreateCarUseCase)
 
 # Listagem de carros
 

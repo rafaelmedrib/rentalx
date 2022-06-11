@@ -1,4 +1,4 @@
-import { ICategoriesDatabase } from "@modules/cars/repositories/ICategoriesDatabase";
+import { ICategoriesDatabase } from "@modules/cars/repositories/ICategoriesRepository";
 import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
 import { AppError } from "@shared/errors/AppError";
 

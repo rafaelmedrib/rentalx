@@ -6,7 +6,6 @@ import { CreateCarUseCase } from "./CreateCarUseCase";
 
 class CreateCarController {
   async handle(request: Request, response: Response): Promise<Response> {
-    console.log("handle controller");
     const {
       name,
       description,
@@ -20,7 +19,6 @@ class CreateCarController {
     const createCarUseCase = container.resolve(CreateCarUseCase);
 
     try {
-      console.log("try controller");
       const car = await createCarUseCase.execute({
         name,
         description,
@@ -33,7 +31,6 @@ class CreateCarController {
 
       return response.status(201).json(car);
     } catch (error) {
-      console.log("catch controller");
       return response.status(500).json({ error: error.message });
     }
   }

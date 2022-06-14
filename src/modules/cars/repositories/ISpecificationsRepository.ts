@@ -6,8 +6,12 @@ interface ICreateSpecificationsDTO {
 }
 
 interface ISpecificationsDatabase {
-  create({ name, description }: ICreateSpecificationsDTO): Promise<void>;
+  create({
+    name,
+    description,
+  }: ICreateSpecificationsDTO): Promise<Specifications>;
   alreadyContains(name: string): Promise<Specifications>;
+  findByIds(ids: string[]): Promise<Specifications[]>;
 }
 
 export { ISpecificationsDatabase, ICreateSpecificationsDTO };

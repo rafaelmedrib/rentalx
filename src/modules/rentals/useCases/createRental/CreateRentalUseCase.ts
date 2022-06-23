@@ -1,5 +1,8 @@
+import { inject, injectable } from "tsyringe";
+
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalRepository } from "@modules/rentals/repositories/IRentalRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
@@ -8,8 +11,14 @@ interface IRequest {
   expected_return_date: Date;
 }
 
+@injectable()
 class CreateRentalUseCase {
-  constructor(private rentalRepository: IRentalRepository) {}
+  constructor(
+    @inject("RentalRepository")
+    private rentalRepository: IRentalRepository,
+    @inject("DayjsDateProvider")
+    private dateProvider: IDateProvider
+  ) {}
 
   async execute({
     car_id,
@@ -35,6 +44,18 @@ class CreateRentalUseCase {
     }
 
     // Não deve ser possível cadastrar um aluguel com duração inferior a 24 horas.
+
+    const now = this.dateProvider.convertToUTC(new Date());
+    const hoursToReturn = this.dateProvider.differenceInHours(
+      now,
+      expected_return_date
+    );
+
+    if (hoursToReturn < 24) {
+      throw new AppError(
+        "Expected return date must be at least 24 hours from now"
+      );
+    }
 
     const rental = await this.rentalRepository.create({
       car_id,

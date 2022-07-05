@@ -22,7 +22,7 @@ class CreateCategoryUseCase {
       throw new AppError("Category already exists!");
     }
 
-    this.categoriesDatabase.create({
+    await this.categoriesDatabase.create({
       name,
       description,
     });

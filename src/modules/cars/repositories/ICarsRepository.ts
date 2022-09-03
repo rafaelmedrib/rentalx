@@ -10,6 +10,7 @@ interface ICarsRepository {
     brand?: string
   ): Promise<Car[]>;
   findById(car_id: string): Promise<Car>;
+  updateAvailability(id: string, available: boolean): Promise<void>;
 }
 
 export { ICarsRepository };

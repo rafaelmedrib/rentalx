@@ -1,7 +1,9 @@
 import { container } from "tsyringe";
 
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import { CarImagesRepository } from "@modules/cars/infra/typeorm/repositories/CarImagesRepository";
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CategoriesDatabase } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
@@ -15,6 +17,8 @@ import { IRentalRepository } from "@modules/rentals/repositories/IRentalReposito
 
 import { IDateProvider } from "./providers/DateProvider/IDateProvider";
 import { DayjsDateProvider } from "./providers/DateProvider/implementations/DayjsDateProvider";
+import { IMailProvider } from "./providers/MailProvider/IMailProvider";
+import { EtherealMailProvider } from "./providers/MailProvider/implementations/EtherealMailProvider";
 
 container.registerSingleton<ICategoriesDatabase>(
   "CategoriesDatabase",
@@ -46,4 +50,14 @@ container.registerSingleton<IRentalRepository>(
 container.registerSingleton<IDateProvider>(
   "DayjsDateProvider",
   DayjsDateProvider
+);
+
+container.registerInstance<IMailProvider>(
+  "EtherealMailProvider",
+  new EtherealMailProvider()
+);
+
+container.registerSingleton<IUsersTokensRepository>(
+  "UsersTokensRepository",
+  UsersTokensRepository
 );

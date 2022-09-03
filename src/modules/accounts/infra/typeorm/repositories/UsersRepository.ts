@@ -38,7 +38,7 @@ class UsersRepository implements IUsersRepository {
       avatar,
     });
 
-    this.repository.save(user);
+    await this.repository.save(user);
   }
 }
 

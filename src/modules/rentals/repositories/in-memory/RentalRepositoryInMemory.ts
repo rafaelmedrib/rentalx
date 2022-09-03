@@ -33,8 +33,8 @@ class RentalRepositoryInMemory implements IRentalRepository {
     dayjs.extend(utc);
 
     const now = dayjs.utc().toDate();
-    const difference = dayjs(expected_return_date).diff(now, "hours");
-    const differenceIsGreaterThan24Hours = difference > 24;
+    const differenceInHours = dayjs(expected_return_date).diff(now, "hours");
+    const differenceIsGreaterThan24Hours = differenceInHours > 24;
 
     if (!differenceIsGreaterThan24Hours) {
       throw new AppError(
@@ -54,6 +54,14 @@ class RentalRepositoryInMemory implements IRentalRepository {
     this.rentals.push(rental);
 
     return rental;
+  }
+
+  async findById(id: string): Promise<Rental> {
+    return this.rentals.find((rental) => rental.id === id);
+  }
+
+  async findByUser(user_id: string): Promise<Rental[]> {
+    return this.rentals.filter((rental) => rental.user_id === user_id);
   }
 }
 

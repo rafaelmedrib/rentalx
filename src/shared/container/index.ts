@@ -1,4 +1,4 @@
-import { container } from "tsyringe";
+import { container, delay } from "tsyringe";
 
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
@@ -19,6 +19,7 @@ import { IDateProvider } from "./providers/DateProvider/IDateProvider";
 import { DayjsDateProvider } from "./providers/DateProvider/implementations/DayjsDateProvider";
 import { IMailProvider } from "./providers/MailProvider/IMailProvider";
 import { EtherealMailProvider } from "./providers/MailProvider/implementations/EtherealMailProvider";
+import { LocalStorageProvider } from "./providers/StorageProvider/implementations/LocalStorageProvider";
 import { S3StorageProvider } from "./providers/StorageProvider/implementations/S3StorageProvider";
 import { IStorageProvider } from "./providers/StorageProvider/IStorageProvider";
 
@@ -64,7 +65,12 @@ container.registerSingleton<IUsersTokensRepository>(
   UsersTokensRepository
 );
 
+const diskStorage = {
+  local: LocalStorageProvider,
+  s3: S3StorageProvider,
+};
+
 container.registerSingleton<IStorageProvider>(
   "StorageProvider",
-  S3StorageProvider
+  delay(() => diskStorage[process.env.DISK])
 );

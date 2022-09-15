@@ -5,3 +5,4 @@ coverage/
 .env
 dist/
 !tmp/.gitkeep
+ormconfig.json

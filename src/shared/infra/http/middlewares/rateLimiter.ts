@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import { RateLimiterRedis } from "rate-limiter-flexible";
-import { createClient } from "redis";
+import redis from "redis";
 
 import { AppError } from "@shared/errors/AppError";
 
@@ -9,7 +9,10 @@ async function rateLimiter(
   response: Response,
   next: NextFunction
 ) {
-  const redisClient = createClient();
+  const redisClient = redis.createClient({
+    host: "localhost",
+    ports: 6379,
+  });
   await redisClient.connect();
 
   const limiter = new RateLimiterRedis({

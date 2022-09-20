@@ -11,7 +11,7 @@ async function rateLimiter(
 ) {
   const redisClient = redis.createClient({
     host: "localhost",
-    ports: 6379,
+    port: 6379,
   });
   await redisClient.connect();
 

@@ -14,21 +14,25 @@ services:
     volumes:
       - pgdata:/data/postgres
 
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
 
-  app:
-    build: .
-    container_name: rentalx
-    restart: always
-    ports: 
-      - 3333:3333
-      - 9229:9229
-    volumes: 
-      - .:/usr/app
+  # app:
+  #   build: .
+  #   container_name: rentalx
+  #   restart: always
+  #   ports: 
+  #     - 3333:3333
+  #     - 9229:9229
+  #   volumes: 
+  #     - .:/usr/app
 
-    links: 
-      - database
-    depends_on:
-      - database
+  #   links: 
+  #     - database
+  #   depends_on:
+  #     - database
 
 
 
